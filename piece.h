@@ -20,7 +20,7 @@ public:
 	Bool is_black();
 	int get_name_value();
 	virtual std::vector<Coord> calc_valid_moves()=0;
-	Piece(Board *board, Coord posn, bool black, int name_value)
+	Piece(Board *board, Coord posn, bool black, int name_value);
 }
 
 #endif
