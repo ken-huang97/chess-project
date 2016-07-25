@@ -323,3 +323,94 @@ void Board::setBoard() {
 	}
 	calc_all_valid_moves(1);
 }
+
+
+
+void Board::calc_all_valid_moves(int player) {
+	this.possible_moves.clear();
+	std::vector<Piece *> all_pieces = board->get_player_pieces(player);
+	for (int i = 0; i < all_pieces.size(); i++) {
+		std::vector<Moving> temp = all_pieces[i]->calc_valid_moves();
+		//into vector of all moves
+		possible_moves.insert(std::possible_moves.end(), std::temp.start(), std::temp.end());
+	}
+}
+
+//Return -1 for not over, 0 for stalemate, 1 for white, 2 for black
+int Board::end_of_game_check() {
+	if (possible_moves.empty()) {
+		if(get_king(enemy)->is_safe()) {
+			std::cout << "Stalemate!" << std::cout;
+			return 0;
+		} else if (player_black){
+			std::cout << "Checkmate! Black wins!" << std::cout;
+			return 2;
+		} else {
+			std::cout << "Checkmate! White wins!" << std::cout;
+			return 1;
+		}
+	} else {
+		return -1;
+	}
+}
+
+//Cpu move
+int Board::call_move(int player) {
+	bool player_black = (player == 2) ? true : false;
+	int enemy = (player_black) ? 1 : 2;
+	if (player_black) {
+		controller1->move();
+	} else {
+		controller2->move();
+	}
+	calc_all_valid_moves(enemy);
+	//Cpu move can never fail.
+	//If there were no possible moves, it would not be called
+	draw();
+	return end_of_game_check();
+}
+
+//Return end_of_game_check() if succesful, else -2 
+//Human move
+int Board::call_move(Moving move, int player) {
+	bool successful_move = false;
+	bool player_black = (player == 2) ? true : false;
+	int enemy = (player_black) ? 1 : 2;
+	if (get_piece(move.start)->is_black() != player_black) {
+		std::cout << "Invalid move" << std::endl;
+	}
+	//Human move can fail if they input a bad input
+	successful_move = (player_black) ? controller2->move(move) : controller1->move(move);
+	if (successful_move) {
+		calc_all_valid_moves(enemy);
+		draw();
+		return end_of_game_check();
+	}
+	return -2;
+}
+
+//Return end_of_game_check() if succesful, else -2 
+//Human move with promote
+int Board::call_move(Moving move, int name_value, int player) {
+	bool player_black = (player == 2) ? true : false;
+	int enemy = (player_black) ? 1 : 2;
+	if (get_piece(move.start)->is_black() != player_black) {
+		std::cout << "Invalid move" << std::endl;
+	}
+	successful_move = (player_black) ? controller2->move(move, name_value) : controller1->move(move, name_value);
+	if (successful_move) {
+		calc_all_valid_moves(enemy);
+		draw();
+		return end_of_game_check();
+	}
+	return -2;
+}
+
+void Board::add_players(int p1, int p2) {
+	//0 for human
+	if (p1 == 0) controller1 = new Human(this, 1);
+	else controller1 = new Computer(this, 1, p1);
+	
+	if (p2 == 0) controller1 = new Human(this, 1);
+	else controller1 = new Computer(this, 1, p2);
+}
