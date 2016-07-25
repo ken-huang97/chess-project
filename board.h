@@ -29,9 +29,9 @@ class Board {
 				std::vector<Moving> get_valid_moves(int player);
 				Piece * get_piece(Coord posn);
 				Piece * get_king(int player);
-				void call_move(int player);
-				void call_move(Moving move, int player);
-				void call_move(Moving move, int name_value, int player);
+				int call_move(int player);
+				int call_move(Moving move, int player);
+				int call_move(Moving move, int name_value, int player);
 				void add_players(int p1, int p2);
 				void move_piece(Moving move, int type);
 				void undo();
