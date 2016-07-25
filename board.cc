@@ -1,3 +1,6 @@
+#include "moving.h"
+#include "undoinfo.h"
+
 
 void move_piece(Moving mov, int type){
 	//Move type 0 is any normal move being, moving to an empty space or capturing an enemy piece
