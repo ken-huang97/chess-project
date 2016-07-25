@@ -3,7 +3,7 @@
 #include "coord.h"
 #include "board.h"
 
-Bishop::Bishop(Coord posn, bool black, int name_value): Piece{posn, black, name_value} {}
+Bishop::Bishop(Board *board, Coord posn, bool black, int name_value): Piece{board, posn, black, name_value} {}
 
 std::vector<Coord> Bishop::calculateValidMoves() {
 	std::vector<Coord> valid;
