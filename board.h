@@ -16,6 +16,7 @@ class Board {
 				Controller * controller2;
 				
 				void calc_all_valid_moves(int player);
+				bool isCheckingMove(const Moving &move);
         public:
                 Board();
                 ~Board();
