@@ -10,6 +10,7 @@ class Piece {
 	Board *board;
 	Coord posn;
 	bool black;
+	bool destroyed;
 	int name_value;
 	//pinned means it is currently protecting the king from being checked
 	int is_pinned() const;
@@ -17,7 +18,8 @@ class Piece {
 public:
 	void update_posn(Coord new_posn);
 	Coord get_posn();
-	Bool is_black();
+	bool is_black();
+	bool is_destroyed();
 	int get_name_value();
 	virtual std::vector<Coord> calc_valid_moves()=0;
 	Piece(Board *board, Coord posn, bool black, int name_value);
