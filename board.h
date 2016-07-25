@@ -6,6 +6,7 @@ class Moving;
 
 class Board {
                 Piece* piece_array[][];
+                std::vector<undoInfo> move_list;
                 std::vector<Piece*> black_pieces;
                 std::vector<Piece*> white_pieces;
                 std::vector<Moving> moves_made;
