@@ -7,6 +7,7 @@ class Knight(): public Piece{
 	Coord possible_moves [num_possible_moves];
 public:
 	Knight(Board *board, Coord posn, bool black, int name_value);
+	vector<Coord> calc_valid_moves();
 };
 
 #endif
