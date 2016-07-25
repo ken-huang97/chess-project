@@ -267,10 +267,10 @@ Piece::Piece(Board *board, Coord posn, bool black, int name_value): board{board}
 	, posn{posn}, black{black}, name_value{name_value}, destroyed{false} {}
 	
 	
-void Piece::destroy_on(){
+void Piece::destroyed_on(){
 	destroyed = true;
 }
 
-void Piece::destroy_off(){
+void Piece::destroyed_off(){
 	destroyed = false;
 }
