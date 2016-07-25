@@ -352,7 +352,7 @@ void Board::calc_all_valid_moves(int player) {
 }
 
 //Return -1 for not over, 0 for stalemate, 1 for white, 2 for black
-int Board::end_of_game_check() {
+int Board::end_of_game_check(int enemy) {
 	if (possible_moves.empty()) {
 		if(get_king(enemy)->is_safe()) {
 			std::cout << "Stalemate!" << std::cout;
@@ -382,10 +382,10 @@ int Board::call_move(int player) {
 	//Cpu move can never fail.
 	//If there were no possible moves, it would not be called
 	draw();
-	return end_of_game_check();
+	return end_of_game_check(enemy);
 }
 
-//Return end_of_game_check() if succesful, else -2 
+//Return end_of_game_check(enemy) if succesful, else -2 
 //Human move
 int Board::call_move(Moving move, int player) {
 	bool successful_move = false;
@@ -399,7 +399,7 @@ int Board::call_move(Moving move, int player) {
 	if (successful_move) {
 		calc_all_valid_moves(enemy);
 		draw();
-		return end_of_game_check();
+		return end_of_game_check(enemy);
 	}
 	return -2;
 }
@@ -416,7 +416,7 @@ int Board::call_move(Moving move, int name_value, int player) {
 	if (successful_move) {
 		calc_all_valid_moves(enemy);
 		draw();
-		return end_of_game_check();
+		return end_of_game_check(enemy);
 	}
 	return -2;
 }
