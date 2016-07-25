@@ -1,7 +1,7 @@
 #include "human.h"
 
 //Constructor
-Human::Human(int player): Controller{player} {}
+Human::Human(Board* board, int player): Controller{board, player} {}
 
 bool Human::move(Moving inputMove){
 	//isValid tracks to see if user input is valid
