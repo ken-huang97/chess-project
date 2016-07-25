@@ -439,3 +439,34 @@ Board::Board() {
 	controller1 = nullptr;
 	controller2 = nullptr;
 }
+
+bool Computer::isCheckingMove(const Moving &move) {
+	int pieceType = board->get_piece(move.start)->get_name_value();
+	bool isBlack = board->get_piece(move.start)->is_black();
+	int moveType;
+	if (pieceType == 1 && move.start.x - move.end.x != 0 && board->get_piece(move.end) == nullptr) {
+		moveType = 2;
+	} else if (pieceType == 1) {
+		if (move->end.y == 0 || move->end.y == 7) {
+			moveType = 1;
+		}
+	} else if (pieceType == 6 && abs(move.start.x - move.end.x) == 2)
+		moveType = 3;
+	} else {
+		moveType = 0;
+	}
+	board->move_piece(move, moveType);
+	int otherplayer;
+	if (isBlack) {
+		otherplayer = 1;
+	} else {
+		otherplayer = 2;
+	}
+	if (board->get_king(otherplayer).is_safe()) {
+		board->undo();
+		return false;
+	} else {
+		board->undo();
+		return true;
+	}
+}
