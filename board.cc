@@ -47,6 +47,7 @@ void move_piece(Moving mov, int type){
 		current_info.first_move_chk=0;
 	}
 	else if(type==3){
+		current_info.first_move_chk=1;
 		if(mov.start.x>mov.end.x){
 			piece_array[mov.end.y][move.end.x] = piece_array[mov.start.y][mov.start.x];
 			piece_array[mov.end.y][3] = piece_array[mov.start.y][0];
