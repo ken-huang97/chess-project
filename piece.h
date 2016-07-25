@@ -20,6 +20,8 @@ public:
 	Coord get_posn();
 	bool is_black();
 	bool is_destroyed();
+	void destroy_on();
+	void destroy_off();
 	int get_name_value();
 	virtual std::vector<Coord> calc_valid_moves()=0;
 	Piece(Board *board, Coord posn, bool black, int name_value);
