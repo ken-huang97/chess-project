@@ -1,4 +1,4 @@
-#include<vector>
+#include <vector>
 #include "bishop.h"
 #include "coord.h"
 #include "board.h"
