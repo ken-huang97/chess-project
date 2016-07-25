@@ -254,3 +254,18 @@ void Board::place_piece(int name, Coord posn, Bool black) {
 		white_pieces.push_back(piece_array[posn.y][posn.x]);
 	}
 }
+
+void Board::reset() {
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			if (piece_array[i][j] != nullptr) {
+				piece_array[i][j] = nullptr;
+			}
+		}
+	}
+	black_pieces.clear();
+	white_pieces.clear();
+	moves_made.clear();
+	destroy.clear();
+	possible_moves.clear();
+}
