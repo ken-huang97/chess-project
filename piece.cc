@@ -265,8 +265,12 @@ bool Piece::is_safe() const{
 
 Piece::Piece(Board *board, Coord posn, bool black, int name_value): board{board}
 	, posn{posn}, black{black}, name_value{name_value}, destroyed{false} {}
-
-
-void Piece::destroyed_on() {
 	
+	
+void Piece::destroy_on(){
+	destroyed = true;
+}
+
+void Piece::destroy_off(){
+	destroyed = false;
 }
