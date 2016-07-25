@@ -269,3 +269,57 @@ void Board::reset() {
 	destroy.clear();
 	possible_moves.clear();
 }
+
+void Board::setBoard() {
+	this->reset();
+	for (int i = 7; i > -1; i—-) {
+		piece_array[7][4] = new Piece(this, Coord(0,4), 0, 6);
+		white_pieces.push_back(piece_array[7][4]);
+		if (i == 7) {
+			for (int j = 0; j < 8; j++) {
+				if (j == 0 || j == 7) piece_array[i][j] = new Piece(this, Coord(i,j), 0, 3);
+				if (j == 1 || j == 6) piece_array[i][j] = new Piece(this, Coord(i,j), 0, 2);
+				if (j == 2 || j == 5) piece_array[i][j] = new Piece(this, Coord(i,j), 0, 4);
+				if (j == 3) piece_array[i][j] = new Piece(this, Coord(i,j), 0, 5);
+			}
+			white_pieces.push_back(piece_array[i][3]);
+			white_pieces.push_back(piece_array[i][2]);
+			white_pieces.push_back(piece_array[i][5]);
+			white_pieces.push_back(piece_array[i][0]);
+			white_pieces.push_back(piece_array[i][7]);
+			white_pieces.push_back(piece_array[i][1]);
+			white_pieces.push_back(piece_array[i][6]);
+		}
+		if (i == 6) {
+			for (int j = 0; j < 8; j++) {
+				piece_array[i][j] = new Piece(this, Coord(i,j), 0, 1);
+				white_pieces.push_back(piece_array[i][j]);
+			}
+		}
+		piece_array[7][4] = new Piece(this, Coord(7,4), 1, 6);
+		black_pieces.push_back(piece_array[7][4]);
+		if (i == 1) {
+			for (int j = 0; j < 8; j++) {
+				piece_array[i][j] = new Piece(this, Coord(i,j), 1, 1);
+				black_pieces.push_back(piece_array[i][j]);
+			}
+		}
+		if (i == 0) {
+			for (int j = 0; j < 8; j++) {
+				if (j == 0 || j == 7) piece_array[i][j] = new Piece(this, Coord(i,j), 1, 3);
+				if (j == 1 || j == 6) piece_array[i][j] = new Piece(this, Coord(i,j), 1, 2);
+				if (j == 2 || j == 5) piece_array[i][j] = new Piece(this, Coord(i,j), 1, 4);
+				if (j == 3) piece_array[i][j] = new Piece(this, Coord(i,j), 1, 5);
+			}
+			black_pieces.push_back(piece_array[i][3]);
+			black_pieces.push_back(piece_array[i][2]);
+			black_pieces.push_back(piece_array[i][5]);
+			black_pieces.push_back(piece_array[i][0]);
+			black_pieces.push_back(piece_array[i][7]);
+			black_pieces.push_back(piece_array[i][1]);
+			black_pieces.push_back(piece_array[i][6]);
+
+		}
+	}
+	calc_all_valid_moves(1);
+}
