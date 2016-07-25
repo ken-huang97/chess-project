@@ -163,3 +163,62 @@ void remove_piece(Coord posn){
 	delete piece_array[posn.y][posn.x];
 	piece_array[posn.y][posn.x] = nullptr;
 }
+
+void Board::draw() {
+	char c;
+	int piece_val;
+	for (int i = 7; i >= 0; i--) {
+		for (int j = 0; j < 8; j++) {
+			Piece* curr = this->get_piece(Coord(j,i));
+			if (curr == nullptr) {
+				if (i % 2 == 1) {
+					if (j % 2 == 0) {
+						c = ' ';
+					} else {
+						c = '-';
+					}
+				} else {
+					if (j % 2 == 0) {
+						c = '-';
+					} else {
+						c = ' ';
+					}
+				}
+			} else {
+				piece_type = this->get_piece(i,j)->get_name_val();
+				if (this->get_piece(i,j)->is_black()) {
+					if (piece_type == 1) {
+						c = 'p';
+					} else if (piece_type == 2) {
+						c = 'n';
+					} else if (piece_type == 3) {
+						c = 'r';
+					} else if (piece_type == 4) {
+						c = 'b';
+					} else if (piece_type == 5) {
+						c = 'q';
+					} else if (piece_type == 6) {
+						c = 'k';
+					}
+				} else {
+					if (piece_type == 1) {
+						c = 'P';
+					} else if (piece_type == 2) {
+						c = 'N';
+					} else if (piece_type == 3) {
+						c = 'R';
+					} else if (piece_type == 4) {
+						c = 'B';
+					} else if (piece_type == 5) {
+						c = 'Q';
+					} else if (piece_type == 6) {
+						c = 'K';
+					}
+				}
+			}
+			std::cout << c;
+		}
+		std::cout << std::endl;
+	}
+}
+
