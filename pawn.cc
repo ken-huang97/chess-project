@@ -55,14 +55,14 @@ std::vector<Coord> Pawn::calc_valid_moves(){
 		}
 
 		//Check to see if an en passant move is possible
-		else if(board->get_piece(Coord(posn.x+1, posn.y))->get_name_value()==1){
+		else if(board->get_piece(Coord(posn.x+1, posn.y))->get_name_value()==1 && (is_pinned()==-1 || is_pinned()==1)){
 			if(board->get_piece(Coord(posn.x+1, posn.y))->get_en_passant()){
 				valid.push_back(Coord(possible_move[1].x + posn.x, possible_move[1].y + posn.y));
 			}
 		}
-		else if(board->get_piece(Coord(posn.x-1, posn.y))->get_name_value()==1){
+		else if(board->get_piece(Coord(posn.x-1, posn.y))->get_name_value()==1 && (is_pinned()==-1 || is_pinned()==3)){
 			if(board->get_piece(Coord(posn.x-1, posn.y))->get_en_passant()){
-				valid.push_back(Coord(possible_move[-1].x + posn.x, possible_move[1].y + posn.y));
+				valid.push_back(Coord(possible_move[2].x + posn.x, possible_move[2].y + posn.y));
 			}
 		}
 
