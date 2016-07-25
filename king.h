@@ -12,7 +12,6 @@ public:
 	void first_move_on();
 	bool get_first_move();
 	std::vector<Coord> calc_valid_moves();
-	std::vector<bool> get_is_castle();
 }
 
 #endif
