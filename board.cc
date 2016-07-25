@@ -222,3 +222,35 @@ void Board::draw() {
 	}
 }
 
+void Board::place_piece(int name, Coord posn, Bool black) {
+	if (posn.x > 7 || posn.x < 0 || posn.y > 7 || posn.y < 0 || name > 6 || name < 1) {
+		std::cout << "Invalid placement" << std::endl;
+		return;
+	}
+	if (this->piece_array[posn.y][posn.x] != nullptr) {
+		if (this->piece_array[posn.y][posn.x]->is_black()) {
+			for (std::vector<int>::iterator i = black_pieces.begin(); i != black_pieces.end(); i++) {
+				if (black_pieces[i]->get_posn() == posn) {
+					black_pieces.erase(i);
+					this->piece_array[posn.y][posn.x] = nullptr;
+					break;
+				}
+			}
+		}
+		else {
+			for (std::vector<int>::iterator i = white_pieces.begin(); i != white_pieces.end(); i++) {
+				if (white_pieces[i]->get_posn() == posn) {
+					white_pieces.erase(i);
+					this->piece_array[posn.y][posn.x] = nullptr;
+					break;
+				}
+			}
+		}
+	}
+	piece_array[posn.y][posn.x] = new Piece(this, Coord(posn.x, posn.y), black, name);
+	if (this.black) {
+		black_pieces.push_back(piece_array[posn.y][posn.x]);
+	} else {
+		white_pieces.push_back(piece_array[posn.y][posn.x]);
+	}
+}
