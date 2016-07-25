@@ -1,13 +1,22 @@
-vector<undoInfo> move_list;
 
 void move_piece(Moving mov, int type){
+	//Move type 0 is any normal move being, moving to an empty space or capturing an enemy piece
+	//Move type 1 is a pawn promotion
+	//Move type 2 is a en passant capture move
+	//Move type 3 is a castling move
+
+	//Creates an undoInfo struct that keeps track of the current moves info
 	undoInfo current_info;
 
+	//the move type is set to be the type that in given
+	//and the Moving mov struct is stored
 	current_info.type_move = type;
 	current_info.mov = mov;
 
+	//
 	if(type==0){
 		current_info.destroy.push_back(piece_array[mov.end.y][mov.end.x]);
+		if(current_info.destroy.back()!=nullptr) current_info.destroy.back()->destroyed_on();
 		piece_array[mov.end.y][move.end.x] = piece_array[mov.start.y][mov.start.x];
 		piece_array[mov.start.y][mov.start.x] = nullptr;
 		piece_array[mov.end.y][mov.end.x]->update_posn(mov.end);
@@ -26,19 +35,24 @@ void move_piece(Moving mov, int type){
 	}
 	else if(type==1){
 		current_info.destroy.push_back(piece_array[mov.end.y][mov.end.x]);
+		if(current_info.destroy.back()!=nullptr) current_info.destroy.back()->destroyed_on();
 		current_info.destroy.push_back(piece_array[mov.start.y][mov.start.x]);
+		if(current_info.destroy.back()!=nullptr) current_info.destroy.back()->destroyed_on();
 		piece_array[mov.start.y][mov.start.x] = nullptr;
 		piece_array[mov.end.y][mov.end.x] = nullptr;
 		current_info.first_move_chk=0;
 	}
 	else if(type==2){
 		current_info.destroy.push_back(piece_array[mov.end.y][mov.end.x]);
+		if(current_info.destroy.back()!=nullptr) current_info.destroy.back()->destroyed_on();
 		if(mov.end.x-mov.start.x > 0){
 			current_info.destroy.push_back(piece_array[mov.start.y][mov.start.x+1]);
+			if(current_info.destroy.back()!=nullptr) current_info.destroy.back()->destroyed_on();
 			piece_array[mov.start.y][mov.start.x+1] = nullptr;
 		}
 		else{
 			current_info.destroy.push_back(piece_array[mov.start.y][mov.start.x-1]);
+			if(current_info.destroy.back()!=nullptr) current_info.destroy.back()->destroyed_on();
 			piece_array[mov.start.y][mov.start.x-1] = nullptr;
 		}
 		piece_array[mov.end.y][move.end.x] = piece_array[mov.start.y][mov.start.x];
@@ -83,27 +97,33 @@ void undo(){
 				piece_array[last_move.mov.start.y][last_move.mov.start.x]->en_passant_off();
 			}
 		}
+		if(last_move.destroy.back()!=nullptr) current_info.destroy.back()->destroyed_off();
 		piece_array[last_move.mov.end.y][last_move.mov.end.x] = last_move.destroy.back();
 		last_move.destroy.clear();
 	}
 	else if(last_move.type_move==1){
 		delete piece_array[last_move.mov.end.y][last_move.mov.end.x];
 		piece_array[last_move.mov.end.y][last_move.mov.end.x] = nullptr;
+		if(last_move.destroy.back()!=nullptr) current_info.destroy.back()->destroyed_off();
 		piece_array[last_move.mov.start.y][last_move.mov.start.x]=last_move.destroy.back();
 		last_move.destroy.pop_back();
+		if(last_move.destroy.back()!=nullptr) current_info.destroy.back()->destroyed_off();
 		piece_array[last_move.mov.end.y][last_move.mov.end.x]=last_move.destroy.back();
 		last_move.destroy.clear();
 	}
 	else if(last_move.type_move==2){
 		if(last_move.mov.end.x-last_move.mov.start.x > 0){
+			if(last_move.destroy.back()!=nullptr) current_info.destroy.back()->destroyed_off();
 			piece_array[mov.start.y][mov.start.x+1] = last_move.destroy.back();
 		}
 		else{
+			if(last_move.destroy.back()!=nullptr) current_info.destroy.back()->destroyed_off();
 			piece_array[mov.start.y][mov.start.x-1] = last_move.destroy.back();
 		}
 		last_move.destroy.pop_back();
 		piece_array[last_move.mov.start.y][last_move.mov.start.x] = piece_array[last_move.mov.end.y][last_move.mov.end.x];
 		piece_array[last_move.mov.start.y][last_move.mov.start.x]->update_posn(last_move.mov.start);
+		if(last_move.destroy.back()!=nullptr) current_info.destroy.back()->destroyed_off();
 		piece_array[last_move.mov.end.y][last_move.mov.end.x] = last_move.destroy.back();
 		last_move.destroy.clear();
 	}
