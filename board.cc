@@ -12,6 +12,9 @@ void move_piece(Moving mov, int type){
 		if(nameVal==1 || nameVal==3 || nameVal==6){
 			if(piece_array[mov.end.y][mov.end.x]->get_first_move()){
 				piece_array[mov.end.y][mov.end.x]->first_move_off();
+				if(nameVal==1){
+					piece_array[mov.end.y][mov.end.x]->en_passant_on();
+				}
 				current_info.first_move_chk=1;
 			}
 			else current_info.first_move_chk=0;
@@ -27,7 +30,7 @@ void move_piece(Moving mov, int type){
 	}
 	else if(type==2){
 		current_info.destroy.push_back(piece_array[mov.end.y][mov.end.x]);
-		if(mov.end.x-move.star.x > 0){
+		if(mov.end.x-mov.start.x > 0){
 			current_info.destroy.push_back(piece_array[mov.start.y][mov.start.x+1]);
 			piece_array[mov.start.y][mov.start.x+1] = nullptr;
 		}
@@ -56,21 +59,57 @@ void move_piece(Moving mov, int type){
 	}
 }
 
-/**void undo(){
-	if(destroy.size()>moves_made.size()){
-		delete piece_array[moves_made.back().end.y][moves_made.back().end.x];
-		destroy.pop_back();
+void undo(){
+	undoInfo last_move = move_list.back();
+	if(last_move.type_move==0){
+		piece_array[last_move.mov.start.y][last_move.mov.start.x] = piece_array[last_move.mov.end.y][last_move.mov.end.x];
+		piece_array[last_move.mov.start.y][last_move.mov.start.x]->update_posn(last_move.mov.start);
+		if(last_move.first_move_chk==1){
+			piece_array[last_move.mov.start.y][last_move.mov.start.x]->first_move_on();
+			if(piece_array[last_move.mov.start.y][last_move.mov.start.x]->get_name_value()==1){
+				piece_array[last_move.mov.start.y][last_move.mov.start.x]->en_passant_off();
+			}
+		}
+		piece_array[last_move.mov.end.y][last_move.mov.end.x] = last_move.destroy.back();
+		last_move.destroy.pop_back();
 	}
-	piece_array[moves_made.back().start.y][moves_made.back().start.x] = piece_array[moves_made.back().end.y][moves_made.back().end.x];
-	piece_array[moves_made.back().start.y][moves_made.back().start.x]->update_posn(moves_made.back().start);
-	if(first_move_chk.back()==1){
-		piece_array[moves_made.back().start.y][moves_made.back().start.x]->first_move_on();
+	else if(last_move.type_move==1){
+		delete piece_array[last_move.mov.end.y][last_move.mov.end.x];
+		piece_array[last_move.mov.end.y][last_move.mov.end.x] = nullptr;
+		piece_array[last_move.mov.start.y][last_move.mov.start.x]=last_move.destroy.back();
+		last_move.destroy.pop_back();
+		piece_array[last_move.mov.end.y][last_move.mov.end.x]=last_move.destroy.back();
+		last_move.destroy.pop_back();
 	}
-	piece_array[moves_made.back().end.y][moves_made.back().end.x] = destroy.back();
-	first_move_chk.pop_back();
-	moves_made.pop_back();
-	destroy.pop_back();
-}**/
+	else if(last_move.type_move==2){
+		if(last_move.mov.end.x-last_move.mov.start.x > 0){
+			piece_array[mov.start.y][mov.start.x+1] = last_move.destroy.back();
+		}
+		else{
+			piece_array[mov.start.y][mov.start.x-1] = last_move.destroy.back();
+		}
+		last_move.destroy.pop_back();
+		piece_array[last_move.mov.start.y][last_move.mov.start.x] = piece_array[last_move.mov.end.y][last_move.mov.end.x];
+		piece_array[last_move.mov.start.y][last_move.mov.start.x]->update_posn(last_move.mov.start);
+		piece_array[last_move.mov.end.y][last_move.mov.end.x] = last_move.destroy.back();
+		last_move.destroy.pop_back();
+	}
+	else if(last_move.type_move==3){
+		if(last_move.mov.start.x-last_move.mov.end.x>0){
+			piece_array[last_move.mov.start.y][last_move.move.start.x] = piece_array[last_move.mov.end.y][last_move.mov.end.x];
+			piece_array[last_move.mov.end.y][0] = piece_array[last_move.mov.start.y][3];
+			piece_array[last_move.mov.end.y][last_move.mov.end.x] = nullptr;
+			piece_array[last_move.mov.start.y][3] = nullptr;
+		}
+		else{
+			piece_array[last_move.mov.start.y][last_move.move.start.x] = piece_array[last_move.mov.end.y][last_move.mov.end.x];
+			piece_array[last_move.mov.end.y][7] = piece_array[last_move.mov.start.y][5];
+			piece_array[last_move.mov.end.y][last_move.mov.end.x] = nullptr;
+			piece_array[last_move.mov.start.y][5] = nullptr;
+		}
+	}
+	move_list.pop_back();
+}
 
 Piece* get_piece(Coord posn){
 	return piece_array[posn.y][posn.x];
