@@ -414,3 +414,13 @@ void Board::add_players(int p1, int p2) {
 	if (p2 == 0) controller1 = new Human(this, 1);
 	else controller1 = new Computer(this, 1, p2);
 }
+
+Board::Board() {
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			piece_array[i][j] = nullptr;
+		}
+	}
+	controller1 = nullptr;
+	controller2 = nullptr;
+}
