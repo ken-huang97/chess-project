@@ -6,5 +6,5 @@ struct Coord;
 
 class Queen : public Piece {
 public:
-	std::vector<Coord> calculateValidMoves();
+	std::vector<Coord> calc_valid_moves();
 }
