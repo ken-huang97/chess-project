@@ -1,3 +1,7 @@
+#include "moving.h"
+#include <vector>
+
+
 //Testing 123
 Computer::Computer(int level): level{level}
 
