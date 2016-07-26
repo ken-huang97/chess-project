@@ -7,11 +7,11 @@ Rook::Rook(Board *board, Coord posn, bool black, int name_value): Piece{board, p
 	first_move = true;
 }
 
-bool Rook::isFirstMove() {
-	return this.first_move;
+bool Rook::get_first_move() {
+	return first_move;
 }
 
-std::vector<Coord> Rook::calculateValidMoves() {
+std::vector<Coord> Rook::calc_valid_moves() {
 	std::vector<Coord> valid;
 	if (is_pinned() == -1) {
 		int i = posn.y;
