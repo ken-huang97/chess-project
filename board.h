@@ -5,7 +5,7 @@ class Piece;
 class Moving;
 
 class Board {
-                Piece* piece_array[][];
+                Piece* piece_array[8][8];
                 std::vector<undoInfo> move_list;
                 std::vector<Piece*> black_pieces;
                 std::vector<Piece*> white_pieces;
