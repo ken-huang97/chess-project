@@ -1,6 +1,10 @@
+#include "board.h"
 #include "moving.h"
 #include "undoinfo.h"
-
+#include "coord.h"
+#include "piece.h"
+#include "human.h"
+#include <vector>
 
 void move_piece(Moving mov, int type){
 	//Move type 0 is any normal move being, moving to an empty space or capturing an enemy piece
@@ -355,8 +359,6 @@ void Board::setBoard() {
 	}
 	calc_all_valid_moves(1);
 }
-
-
 
 void Board::calc_all_valid_moves(int player) {
 	this.possible_moves.clear();
