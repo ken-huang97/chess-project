@@ -5,7 +5,7 @@ struct Coord;
 
 class Bishop : public Piece {
 public:
-	std::vector<Coord> calculateValidMoves();
+	std::vector<Coord> calc_valid_moves();
 }
 
 #endif
