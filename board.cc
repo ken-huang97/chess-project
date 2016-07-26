@@ -296,13 +296,15 @@ void Board::reset() {
 	for (std::vector<int>::iterator i = white_pieces.begin(); i != white_pieces.end(); ++i) {
 		if (white_pieces[i] != nullptr) delete white_pieces[i];
 	}
-	for (std::vector<int>::iterator i = destroy.begin(); i != destroy.end(); ++i) {
-		if (destroy[i] != nullptr) delete destroy[i];
+	for (std::vector<int>::iterator i = move_list.begin(); i != move_list.end(); ++i) {
+		for (std::vector<int>::iterator j = move_list[i].destroy.begin(); j != move_list[i].destroy.end(); ++j) {
+			delete move_list.destroy[j];
+		}
 	}
+	move_list.clear();
 	black_pieces.clear();
 	white_pieces.clear();
 	moves_made.clear();
-	destroy.clear();
 	possible_moves.clear();
 }
 
