@@ -13,12 +13,12 @@ class Board {
                 std::vector<Piece*> destroy;
                 std::vector<Moving> possible_moves;
 				
-				Controller * controller1;
-				Controller * controller2;
+		Controller * controller1;
+		Controller * controller2;
 				
-				void calc_all_valid_moves(int player);
-				bool isCheckingMove(const Moving &move);
-				int end_of_game_check();
+		void calc_all_valid_moves(int player);
+		bool isCheckingMove(const Moving &move);
+		int end_of_game_check();
         public:
                 Board();
                 ~Board();
@@ -26,19 +26,19 @@ class Board {
                 void place_piece();
                 void reset();
                 void draw();
-				std::vector<Moving> get_valid_moves(int player);
-				Piece * get_piece(Coord posn);
-				Piece * get_king(int player);
-				int call_move(int player);
-				int call_move(Moving move, int player);
-				int call_move(Moving move, int name_value, int player);
-				void add_players(int p1, int p2);
-				void move_piece(Moving move, int type);
-				void undo();
-				Piece* get_piece(Coord posn);
-				Piece* get_king(int player);
-				vector<Piece*> get_player_pieces(int player);
-				void remove_piece(Coord posn);
+		std::vector<Moving> get_valid_moves(int player);
+		Piece * get_piece(Coord posn);
+		Piece * get_king(int player);
+		int call_move(int player);
+		int call_move(Moving move, int player);
+		int call_move(Moving move, int name_value, int player);
+		void add_players(int p1, int p2);
+		void move_piece(Moving move, int type);
+		void undo();
+		Piece* get_piece(Coord posn);
+		Piece* get_king(int player);
+		vector<Piece*> get_player_pieces(int player);
+		void remove_piece(Coord posn);
 				
 }
 
