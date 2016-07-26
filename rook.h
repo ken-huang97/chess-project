@@ -4,11 +4,9 @@
 #include "coord.h"
 #include <vector>
 
-struct Coord;
-
 class Rook : public Piece {
 	bool first_move;
 public:
-	std::vector<Coord> calculateValidMoves();
+	std::vector<Coord> calc_valid_moves();
 	bool get_first_move();
 }
