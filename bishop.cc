@@ -5,7 +5,7 @@
 
 Bishop::Bishop(Board *board, Coord posn, bool black, int name_value): Piece{board, posn, black, name_value} {}
 
-std::vector<Coord> Bishop::calculateValidMoves() {
+std::vector<Coord> Bishop::calc_valid_moves() {
 	std::vector<Coord> valid;
 	int x, y;
 	if (is_pinned() == -1) {
