@@ -1,3 +1,8 @@
+#include "board.h"
+#include "piece.h"
+#include "moving.h"
+#include <vector>
+
 Computer::Computer(Board *board, int player, int level): Controller{board, player}, level{level} {}
 
 
