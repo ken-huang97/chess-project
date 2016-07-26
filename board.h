@@ -12,10 +12,8 @@ class Board {
                 std::vector<Moving> moves_made;
                 std::vector<Piece*> destroy;
                 std::vector<Moving> possible_moves;
-				
 		Controller * controller1;
 		Controller * controller2;
-				
 		void calc_all_valid_moves(int player);
 		bool isCheckingMove(const Moving &move);
 		int end_of_game_check();
@@ -39,7 +37,6 @@ class Board {
 		Piece* get_king(int player);
 		vector<Piece*> get_player_pieces(int player);
 		void remove_piece(Coord posn);
-				
 }
 
 #endif
