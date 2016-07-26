@@ -10,7 +10,6 @@ class Board {
                 std::vector<Piece*> black_pieces;
                 std::vector<Piece*> white_pieces;
                 std::vector<Moving> moves_made;
-                std::vector<Piece*> destroy;
                 std::vector<Moving> possible_moves;
 		Controller * controller1;
 		Controller * controller2;
