@@ -371,16 +371,13 @@ void Board::calc_all_valid_moves(int player) {
 }
 
 //Return -1 for not over, 0 for stalemate, 1 for white, 2 for black
-int Board::end_of_game_check(int enemy) {
+int Board::end_of_game_check() {
 	if (possible_moves.empty()) {
 		if(get_king(enemy)->is_safe()) {
-			std::cout << "Stalemate!" << std::cout;
 			return 0;
 		} else if (player_black){
-			std::cout << "Checkmate! Black wins!" << std::cout;
 			return 2;
 		} else {
-			std::cout << "Checkmate! White wins!" << std::cout;
 			return 1;
 		}
 	} else {
